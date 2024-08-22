@@ -6,7 +6,7 @@ import { Link, useHistory } from 'react-router-dom'
 import * as Yup from "yup";
 import { yupResolver } from "@hookform/resolvers/yup";
 
-import Button from '../../components/Button';
+import {Button, ErrorMessage} from '../../components';
 import LoginImg from "../../assets/login-image.svg";
 import Logo from "../../assets/logo.svg";
 import { useUser} from '../../hooks/UserContext'
@@ -18,11 +18,10 @@ import {
   ContainerItens,
   Label,
   Input,
-  EntrarLink,
-  ErrorMessage,
+  EntrarLink
 } from "./styles";
 
-function Login() {
+export function Login() {
   const history = useHistory()
   const { putUserData} = useUser()
  
@@ -63,7 +62,11 @@ function Login() {
 
 
       setTimeout(() => {
-        history.push('/')
+        if (data.admin) {
+          history.push('/pedidos')
+        } else {
+          history.push('/')
+        }
       }, 1000);
 
       
@@ -111,4 +114,3 @@ function Login() {
   );
 }
 
-export default Login;

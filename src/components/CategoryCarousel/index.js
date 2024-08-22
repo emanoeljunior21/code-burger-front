@@ -5,7 +5,7 @@ import api from '../../services/api';
 import { Container, CategoryImg, ContainerItems, Image, Button } from './styles';
 import Carousel from 'react-elastic-carousel'
 
-function CategoryCarousel() {
+export function CategoryCarousel() {
     const [categories, setCategories] = useState([])
     useEffect(() => {
         async function loadCategories() {
@@ -39,7 +39,14 @@ function CategoryCarousel() {
                 categories && categories.map( category => (
                     <ContainerItems key={category.id}>
                         <Image src={category.url} alt='foto da categoria' />
-                        <Button>{category.name}</Button>
+                        <Button
+                        to={{
+                            pathname: 'produtos',
+                            state: { categoryId: category.id}
+                        }}
+                        >
+                            {category.name}
+                            </Button>
 
                     </ContainerItems>
                 ))
@@ -49,4 +56,4 @@ function CategoryCarousel() {
     );
 }
 
-export default CategoryCarousel;
+
